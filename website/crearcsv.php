@@ -3,6 +3,7 @@
  require 'scripts/funciones.php';
  
  $email = $_POST['email'];
+ $actor = $_POST['actor'];
  $reclamo = $_POST['reclamo'];
  $importe = $_POST['importe'];
  $fechacupon = $_POST['fecha'];
@@ -14,49 +15,53 @@
     //create a file pointer
     $f = fopen('php://memory', 'w');
 
+
+
+    $fechacupon = date("Y-m-d",strtotime($fechacupon."+ 2 years")); 
+
     for($i = 1; $i <= $cuotas ; ++$i) {
 
         $mescupon =  date("m",strtotime($fechacupon)); 
-        $anio =  date("Y",strtotime($fechacupon)); 
+        $anio =  date("Y",strtotime($fechacupon)) - 2; 
 
         if ($mescupon == 1){
-             $mes =  "ENERO";
+             $mes =  "ENE";
         }
         if ($mescupon == 2){
-            $mes =  "FEBRERO";
+            $mes =  "FEB";
        }
        if ($mescupon == 3){
-        $mes =  "MARZO";
+        $mes =  "MAR";
         }
         if ($mescupon == 4){
-            $mes =  "ABRIL";
+            $mes =  "ABR";
        }
        if ($mescupon == 5){
-        $mes =  "MAYO";
+        $mes =  "MAY";
        }
        if ($mescupon == 6){
-        $mes =  "JUNIO";
+        $mes =  "JUN";
         }
         if ($mescupon == 7){
-            $mes =  "JULIO";
+            $mes =  "JUL";
        }
        if ($mescupon == 8){
-           $mes =  "AGOSTO";
+           $mes =  "AGO";
       }
       if ($mescupon == 9){
-       $mes =  "SEPTIEMBRE";
+       $mes =  "SEPT";
        }
        if ($mescupon == 10){
-           $mes =  "OCTUBRE";
+           $mes =  "OCT";
       }
       if ($mescupon == 11){
-       $mes =  "NOVIEMBRE";
+       $mes =  "NOV";
       }
       if ($mescupon == 12){
-       $mes =  "DICIEMBRE";
+       $mes =  "DIC";
        }
 
-        $titulo = "CUPON ".$mes." DEL ".$anio;
+        $titulo = $actor." -CUPON ".$mes.".".$anio;
         $fields = array($email, $titulo, $reclamo, $importe,$fechacupon,null,null);
         $fechacupon = date("Y-m-d",strtotime($fechacupon."+ 1 month")); 
         fputcsv($f, $fields, $delimiter);
@@ -72,4 +77,8 @@
     
     //output all remaining data on a file pointer
     fpassthru($f);
+    
+   
 ?>
+
+

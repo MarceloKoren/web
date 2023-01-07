@@ -53,11 +53,11 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Generar CSV</h1>
+        <h1 class="h2">Generar Cuponera</h1>
         
       </div>
         
-        <form class="form-horizontal" action="crearcsv.php" method="post">
+        <form class="form-horizontal" action="crearcuponera.php" method="post">
 
         <div class="form-group row">
      
@@ -107,7 +107,7 @@
     
     <div class="form-group row">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-lg btn-outline-primary">Crear CSV</button>
+        <button type="submit" class="btn btn-lg btn-outline-primary">Crear cuponera</button>
       </div>
     </div>
             
