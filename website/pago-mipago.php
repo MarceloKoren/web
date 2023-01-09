@@ -1,5 +1,4 @@
 <?php
-  header("Content-Type: text/html;charset=utf-8");
   require 'scripts/funciones.php';
   if ( !haIniciadoSesion() || !esAdmin()){
       header( 'location : index.html');
@@ -10,7 +9,7 @@
 
 <html lang="es">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
@@ -50,22 +49,28 @@
 <div class="container-fluid">
   <div class="row">
     <?php include 'admin/menulateral.html'; ?>
-
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Clientes</h1>
-        
-    </div>
+  
 
+    <div class="container">
+<div class="panel panel-default">
+<div class="panel-body">
+<br>
+<h1 class="h2">Pagos por Plataforma Mi Pago</h1>
+<nav class="navbar navbar-light bg-light">
+    <form action="buscarpagos-mipago.php" method="get" class="form-inline">
+    <input class="form-control mr-sm-2" type="search" name="busqueda" placeholder="Buscar" id="busqueda" aria-label="Buscar">
+    <button class="btn btn-lg btn-outline-primary" type="submit">Buscar</button>
+    </form>
+</nav>
 <?php
              conectar();
-             $consulta = "SELECT COUNT(*) as totalregistros FROM `clients` "; 
+             $consulta = "SELECT COUNT(*) as totalregistros FROM  libro1 where state ='Pagada'"; 
              $totalregiste = mysqli_query($conexion, $consulta);
              $totalregister = mysqli_fetch_array($totalregiste);
              $totalregistros= $totalregister['totalregistros'];
-
-   
-
+             echo $totalregistros;
              $porpagina=25;
              
              if(empty($_GET['pagina']))
@@ -86,38 +91,47 @@
                 $endloop=$totalpaginas;
               }
                
-              
-              $consulta = "SELECT * FROM clients  LIMIT $desde,$porpagina"; 
+              $consulta = "SELECT * FROM  libro1 where state ='Pagada' ORDER BY paymentDate ASC LIMIT $desde,$porpagina"; 
               $query = mysqli_query($conexion, $consulta);
-              $usuarios = mysqli_fetch_all($query);
+              $pagos = mysqli_fetch_all($query);
        ?>
 
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th>Nombre Completo</th>
-              <th>Email</th>
-              <th>DNI</th>
-           
-            </tr>
-          </thead>
-          <tbody>
-            <?php    foreach ($usuarios as $usuario):   ?>
+<br>
+<div class="table-responsive">
+<table class="table table-striped table-sm">
+<thead>
+<tr>
+<th>Cliente</th>
+<th>Concepto</th>
+<th>Monto</th>
+<th>Fecha</th>
+<th>Cuenta</th>
+</tr>
+</thead>
+<tbody>
+            <?php    foreach ($pagos as $pago):   ?>
                 <tr>
-                  <td><?php echo $usuario[0]   ?></td>
+                  <td><?php echo utf8_encode($pago[1])   ?></td>
                   
-                   <td><?php echo $usuario[1] ?></td>
+                   <td><?php echo $pago[4]   ?></td>
                  
-                   <td><?php echo $usuario[2] ?></td>   
+                   <td><?php echo $pago[7]   ?></td>
+
+                   <td><?php echo $pago[10]   ?></td>
+                 
+                   <td>Mi Pago</td>
+                   
+                          
                 </tr>
             <?php endforeach;   ?>        
           </tbody>
-        </table>
-          <nav>
+</table>
+
+<nav>
           <ul class="pagination justify-content-center">
 
-          <?php
+          
+           <?php
             if($pagina > 1){
               echo "<a class='page-link' href='?pagina=1'>Primera</a>";
               echo "<a class='page-link' href='?pagina=".($pagina - 1)."'><<</a>";
@@ -133,20 +147,30 @@
                   }
                 
               }
-              if($pagina < $totalpaginas){
+              if($pagina < $endloop){
                 echo "<a class='page-link' href='?pagina=".($pagina + 1)."'>>></a>";
                 echo "<a class='page-link' href='?pagina=".$totalpaginas."'>Última</a>";
               }
             
             ?>
             
-     
            
           </ul> 
           </nav>
-
-      </div>
+</div>
+</div>
+</div>
+</div>
+</div>
     </main>
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

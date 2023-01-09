@@ -17,7 +17,7 @@ $form_cuenta = $_POST['cuentadigital'];
 // Obtengo los registros del csv
 while(($data = fgetcsv($csv_file)) !== FALSE){
 // Chequeo que el cupon no este cargado
-
+echo $data[1];
 
 
 $mysql_insert = "INSERT INTO movimientos (referencia, codigodebarras, monto, fecha, cuenta, mediodepago)VALUES('".$data[1]."', '".$data[2]."', '".$data[3]."','".$data[0]."' ,'$form_cuenta','')";
