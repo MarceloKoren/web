@@ -69,14 +69,14 @@
 <h1 class="h2">Pagos por Plataforma Mi Pago</h1>
 <nav class="navbar navbar-light bg-light">
     <a></a>
-    <form action="buscarpagos.php" method="get" class="form-inline ">
+    <form action="buscarpagos-mipago.php" method="get" class="form-inline ">
     <input class="form-control mr-sm-2" type="search" name="busqueda" placeholder="Buscar" id="busqueda" aria-label="Buscar">
     <button class="btn btn-lg btn-outline-primary" type="submit">Buscar</button>
   </form>
 </nav>
 <?php
              conectar();
-             $consulta = "SELECT COUNT(*) as totalregistros FROM  libro1 where (state ='Pagada' AND clientName LIKE '%$busqueda%' )"; 
+             $consulta = "SELECT COUNT(*) as totalregistros FROM  libro2 where (state ='Pagada' AND clientName LIKE '%$busqueda%' )"; 
              $totalregiste = mysqli_query($conexion, $consulta);
              $totalregister = mysqli_fetch_array($totalregiste);
              $totalregistros= $totalregister['totalregistros'];
@@ -106,7 +106,7 @@
               }
                
      
-              $consulta = "SELECT * FROM libro1  where (state ='Pagada' AND clientName LIKE '%$busqueda%' ) LIMIT $desde,$porpagina" ; 
+              $consulta = "SELECT * FROM libro2  where (state ='Pagada' AND clientName LIKE '%$busqueda%' ) LIMIT $desde,$porpagina" ; 
               $query = mysqli_query($conexion, $consulta);
               $pagos = mysqli_fetch_all($query);
 
@@ -132,9 +132,9 @@
                   
                   <td><?php echo $pago[4]   ?></td>
                 
-                  <td><?php echo $pago[7]   ?></td>
+                  <td><?php echo $pago[6]   ?></td>
 
-                  <td><?php echo $pago[10]   ?></td>
+                  <td><?php echo $pago[9]   ?></td>
                 
                   <td>Mi Pago</td>
                    

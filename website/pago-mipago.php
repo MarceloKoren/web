@@ -66,7 +66,7 @@
 </nav>
 <?php
              conectar();
-             $consulta = "SELECT COUNT(*) as totalregistros FROM  libro1 where state ='Pagada'"; 
+             $consulta = "SELECT COUNT(*) as totalregistros FROM  libro2 where state ='Pagada'"; 
              $totalregiste = mysqli_query($conexion, $consulta);
              $totalregister = mysqli_fetch_array($totalregiste);
              $totalregistros= $totalregister['totalregistros'];
@@ -91,7 +91,7 @@
                 $endloop=$totalpaginas;
               }
                
-              $consulta = "SELECT * FROM  libro1 where state ='Pagada' ORDER BY paymentDate ASC LIMIT $desde,$porpagina"; 
+              $consulta = "SELECT * FROM  libro2 where state ='Pagada' ORDER BY paymentDate ASC LIMIT $desde,$porpagina"; 
               $query = mysqli_query($conexion, $consulta);
               $pagos = mysqli_fetch_all($query);
        ?>
@@ -115,9 +115,9 @@
                   
                    <td><?php echo $pago[4]   ?></td>
                  
-                   <td><?php echo $pago[7]   ?></td>
+                   <td><?php echo $pago[6]   ?></td>
 
-                   <td><?php echo $pago[10]   ?></td>
+                   <td><?php echo $pago[9]   ?></td>
                  
                    <td>Mi Pago</td>
                    

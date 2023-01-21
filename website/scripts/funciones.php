@@ -48,6 +48,15 @@
        $respuesta = mysqli_query($conexion, $consulta);
        return mysqli_fetch_row($respuesta);
    }
+
+   function pagomesnov($usuario){
+       
+    global $conexion;
+    $consulta = "SELECT clientName FROM libro1 WHERE (clientName = '$usuario' and state = 'Pagada' and paymentDate like '%/12/2022%') ";
+    $respuesta = mysqli_query($conexion, $consulta);
+    $respuesta =  mysqli_fetch_row($respuesta);
+    return $respuesta;
+}
    
 
    

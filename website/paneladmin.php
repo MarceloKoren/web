@@ -22,7 +22,8 @@
     <!-- Bootstrap core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style>
@@ -59,41 +60,13 @@
 
 <?php
              conectar();
-             $consulta = "SELECT COUNT(*) as totalregistros FROM `clients` "; 
-             $totalregiste = mysqli_query($conexion, $consulta);
-             $totalregister = mysqli_fetch_array($totalregiste);
-             $totalregistros= $totalregister['totalregistros'];
-
-   
-
-             $porpagina=25;
-             
-             if(empty($_GET['pagina']))
-             {   
-              $pagina= 1;
-              }else {
-              $pagina = $_GET['pagina'];
-              }
-
-              $desde = ($pagina - 1) * $porpagina;
-              $totalpaginas = ceil($totalregistros / $porpagina);
-
-              $startloop = $pagina;
-
-              $endloop = $startloop + 4;
-
-              if($endloop>$totalpaginas){
-                $endloop=$totalpaginas;
-              }
-               
-              
-              $consulta = "SELECT * FROM clients  LIMIT $desde,$porpagina"; 
+              $consulta = "SELECT * FROM clients"; 
               $query = mysqli_query($conexion, $consulta);
               $usuarios = mysqli_fetch_all($query);
        ?>
 
       <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table id="example" class="table table-striped table-sm">
           <thead>
             <tr>
               <th>Nombre Completo</th>
@@ -114,37 +87,6 @@
             <?php endforeach;   ?>        
           </tbody>
         </table>
-          <nav>
-          <ul class="pagination justify-content-center">
-
-          <?php
-            if($pagina > 1){
-              echo "<a class='page-link' href='?pagina=1'>Primera</a>";
-              echo "<a class='page-link' href='?pagina=".($pagina - 1)."'><<</a>";
-            }
-            for($i=$startloop;$i <= $endloop;$i++){
-
-              
-
-                if ($i==$pagina){
-                    echo '<li class="page-item active"><a class="page-link">'.$i.' </a></li>';
-                  }else{
-                echo '<li class="page-item"><a href="?pagina='.$i.'" class="page-link">'.$i.' </a></li>';
-                  }
-                
-              }
-              if($pagina < $totalpaginas){
-                echo "<a class='page-link' href='?pagina=".($pagina + 1)."'>>></a>";
-                echo "<a class='page-link' href='?pagina=".$totalpaginas."'>Última</a>";
-              }
-            
-            ?>
-            
-     
-           
-          </ul> 
-          </nav>
-
       </div>
     </main>
   </div>
@@ -153,5 +95,13 @@
       <script>window.jQuery || document.write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')</script><script src="/docs/4.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
-        <script src="js/dashboard.js"></script></body>
+        <script src="js/dashboard.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.js"></script>
+      <script>
+        	$(document).ready(function(){
+	                	$("#example").DataTable();
+	             });
+      </script>
+      
+      </body>
 </html>
